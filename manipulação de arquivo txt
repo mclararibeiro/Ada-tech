@@ -17,3 +17,16 @@ dicionario_dados['nomes'] = nomes
 dicionario_dados['quantidade'] = qtds
 
 dicionario_dados['nomes']
+
+with open('atividade_arquivos.txt', 'r', encoding='utf-8') as dados:
+    headers = dados.readline().strip().split(';')
+    data = {chave: [] for chave in headers}
+
+    for coluna in dados:
+        id,nome, qtd = coluna.strip().split(';')
+        data['id_municipio'].append(id)
+        data['nome'].append(nome)
+        data['quantidade_nascimentos_ate_2010'].append(qtd)
+
+        
+    print(headers)
