@@ -30,3 +30,7 @@ with open('atividade_arquivos.txt', 'r', encoding='utf-8') as dados:
 
         
     print(headers)
+    
+    final_data = []
+for obs in raw_data:
+    final_data.append([obs['Confirmed'], obs['Deaths'], obs['Recovered'],obs['Active'],obs['Date']])
