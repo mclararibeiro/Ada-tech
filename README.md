@@ -12,4 +12,4 @@ Nesta pasta estou construindo uma análise de negócio a partir dos [dados](anal
 
 
 [Análise do catálogo da Netflix](analise_catalogo_ netflix/analise_inicial.ipynb)
-Esta pasta contempla uma análise através dos [dados do catálogo da netflix](analise_catalogo_ netflix/netflix_titles.csv). Contém limpeza e ajustes nos dados e finalmente uma análise gráfica sobre o conteúdo.
+Esta pasta contempla uma análise através dos dados do catálogo da [netflix](analise_catalogo_ netflix/netflix_titles.csv). Contém limpeza e ajustes nos dados e finalmente uma análise gráfica sobre o conteúdo.
