@@ -136,7 +136,56 @@ values
 ('13','1','3','19/01/2023','5','2','final');
 
 
+-- CONSULTAS
+
+-- numero de partidas por jogador
+
+select jogadores.nome_jogador, count(distinct partidas.idjogo) as partidas_disputadas
+from jogos.jogadores
+join jogos.time on jogadores.idtime = time.id
+join jogos.partidas on time.id = partidas.idtime1 or time.id = partidas.idtime2
+group by jogadores.nome_jogador
+order by partidas_disputadas desc;
+
+-- qual time marcou mais gols
+
+select 
+  time, 
+  sum(case when idtime1 = id then golstime1 else golstime2 end) as total_gols
+from jogos.partidas
+join jogos.time
+on jogos.partidas.idtime1 = jogos.time.id or jogos.partidas.idtime2 = jogos.time.id
+group by time
+order by total_gols desc;
 
 
+-- qual time teve a melhor defesa
+
+select 
+  time, 
+  sum(case when idtime1 = id then golstime2 else golstime1 end) as total_goals_sofridos
+from jogos.partidas
+join jogos.time
+on jogos.partidas.idtime1 = jogos.time.id or jogos.partidas.idtime2 = jogos.time.id
+group by time
+order by total_goals_sofridos asc;
+
+-- Vitorias, derrotas e empate e pontuacao dos times
+
+select 
+  time, 
+  sum(case when idtime1 = id and golstime1 > golstime2 then 1 else 0 end) + 
+  sum(case when idtime2 = id and golstime2 > golstime1 then 1 else 0 end) as vitorias,
+  sum(case when golstime1 = golstime2 then 1 else 0 end) as empate,
+  sum(case when idtime1 = id and golstime1 < golstime2 then 1 else 0 end) + 
+  sum(case when idtime2 = id and golstime2 < golstime1 then 1 else 0 end) as derrotas,
+  (sum(case when idtime1 = id and golstime1 > golstime2 then 3 else 0 end) + 
+  sum(case when idtime2 = id and golstime2 > golstime1 then 3 else 0 end) +
+  sum(case when golstime1 = golstime2 then 1 else 0 end)) as pontos
+from jogos.partidas
+join jogos.time
+on jogos.partidas.idtime1 = jogos.time.id or jogos.partidas.idtime2 = jogos.time.id
+group by time
+order by pontos desc;
 
 
